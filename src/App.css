@@ -1,49 +1,192 @@
+/* CSS Variables for theming and consistency */
+:root {
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-surface-hover: #2a2a2a;
+  --color-border: #333;
+  --color-text: #ffffff;
+  --color-text-muted: #888;
+  --color-primary: #646cff;
+  --color-primary-hover: #535bf2;
+  --color-secondary: #61dafb;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --header-height: 4rem;
+}
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* App wrapper */
 .app-wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Main content */
 .main-content {
   flex: 1;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: clamp(1rem, 5vw, 3rem);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/* Logo section */
+.logo-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2rem);
+  margin-bottom: 0.5rem;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: clamp(4rem, 15vw, 6rem);
+  padding: 0.5rem;
   will-change: filter;
-  transition: filter 300ms;
+  transition: transform var(--transition-fast), filter var(--transition-normal);
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 1.5em var(--color-primary));
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 1.5em var(--color-secondary));
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
+  .logo.react {
     animation: logo-spin infinite 20s linear;
+  }
+  .logo.react:hover {
+    animation-play-state: paused;
   }
 }
 
-.card {
-  padding: 2em;
+/* Typography */
+h1 {
+  font-size: clamp(1.75rem, 6vw, 3rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* Card */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.5);
+}
+
+/* Button */
+button {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgb(100 108 255 / 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Code */
+code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  background: var(--color-surface-hover);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--color-secondary);
+}
+
+/* Read the docs */
 .read-the-docs {
-  color: #888;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  max-width: 600px;
+}
+
+/* Focus visible for accessibility */
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

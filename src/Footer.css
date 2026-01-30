@@ -1,8 +1,8 @@
 .footer {
-  background-color: #1a1a1a;
-  color: #888;
-  padding: 1.5rem 2rem;
-  border-top: 1px solid #333;
+  background: var(--color-surface, #1a1a1a);
+  color: var(--color-text-muted, #888);
+  padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2rem);
+  border-top: 1px solid var(--color-border, #333);
   margin-top: auto;
 }
 
@@ -12,33 +12,60 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .footer p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .footer-links {
   display: flex;
-  gap: 1.5rem;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .footer-links a {
-  color: #888;
+  color: var(--color-text-muted, #888);
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.25s;
+  font-size: 0.875rem;
+  transition: color var(--transition-fast, 150ms ease);
+  position: relative;
 }
 
-.footer-links a:hover {
-  color: #fff;
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--color-text, #fff);
 }
 
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-primary, #646cff);
+  transition: width var(--transition-fast, 150ms ease);
+}
+
+.footer-links a:hover::after,
+.footer-links a:focus-visible::after {
+  width: 100%;
+}
+
+/* Mobile responsive */
 @media (max-width: 640px) {
   .footer-content {
     flex-direction: column;
-    gap: 1rem;
     text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .footer-links {
+    gap: 1rem;
   }
 }
